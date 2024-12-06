@@ -14,7 +14,7 @@ A Python tool to analyze and monitor the global propagation of IP prefixes using
 ## Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/prefix-visibility-checker.git
+   git clone git@github.com:nleontsinis-equinix/bgp-prefix-checker.git
    cd prefix-visibility-checker
 
 Install dependencies:
