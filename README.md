@@ -1,47 +1,44 @@
-# bgp-prefix-checker
-A Python tool to analyze and monitor the global propagation of IP prefixes using RIPEstat APIs. This tool fetches advertised prefixes for a list of IP addresses, checks their visibility in the global BGP table, and provides detailed results on their announcement status. Ideal for network engineers and researchers monitoring BGP visibility
+check-prefixes.py – Multi-Provider BGP Visibility Checker
+check-prefixes.py is a Python tool for network engineers to verify global BGP visibility of IP prefixes and addresses across multiple data sources. It also reports origin ASNs and organisation names, and generates a separate report for non-propagated prefixes.
+Features
+
+Query multiple providers:
+
+RIPEstat – Prefix visibility and more-specifics.
+BGPView – Visibility, ASN, and organisation details.
+Cloudflare Radar (requires API token).
+bgproutes.io (requires API endpoint).
+Team Cymru WHOIS – ASN and name mapping.
+RADb IRR – Registration evidence.
 
 
-Key Functionalities of the Script:
-
-    Fetch Advertised Prefix:
-        Uses the RIPEstat prefix-overview API to get the advertised prefix for a given IP address.
-
-    Check Prefix Visibility:
-        Uses the RIPEstat bgp-state API to determine if the fetched prefix is visible in the global BGP table.
-
-    Process a List of IPs:
-        Reads a file containing a list of IP addresses.
-        For each IP, fetches the prefix and checks its visibility status.
-
-    Output Results:
-        Prints whether each IP's prefix is globally propagated or not.
-
-## Features
-- Fetch advertised prefixes for a given IP address.
-- Check if prefixes are globally visible in the BGP table.
-- Process a list of IPs from a file and display results.
-
-## Requirements
-- Python 3.x
-- `requests` library (Install using `pip install requests`)
-
-## Installation
-1. Clone this repository:
-   ```bash
-   git clone git@github.com:nleontsinis-equinix/bgp-prefix-checker.git
-   cd prefix-visibility-checker
-
-Install dependencies:
-pip install requests
-
+Deduplicated origin ASN reporting with provider sources.
+Optional JSON output for automation.
+Separate file report for non-propagated prefixes.
+Configurable HTTP timeout, retries, and backoff.
+Built-in --help, --providers-list, and --version.
 
 Usage
 
-Prepare a file named ip_addresses.txt with one IP address per line:
-192.0.2.1
-203.0.113.5
+# Basic check with all providers
+python3 check-prefixes.py -r prefixes.txt
 
+# JSON output
+python3 check-prefixes.py -r prefixes.txt --json
 
-Run the script:
-python check_prefixes.py
+# Limit providers
+python3 check-prefixes.py -r prefixes.txt --providers ripe,bgpview,teamcymru
+
+# Custom report file
+python3 check-prefixes.py -r prefixes.txt --report-file /tmp/not_propagated.txt
+
+# Disable report
+python3 check-prefixes.py -r prefixes.txt --report-file -
+
+# List supported providers
+python3 check-prefixes.py --providers-list
+
+Output Example
+
+195.234.187.0/24: Propagated as 195.234.187.0/24 via RIPEstat,BGPView | origin(s): AS47886 (EQUINIX-NL-ASN)
+
