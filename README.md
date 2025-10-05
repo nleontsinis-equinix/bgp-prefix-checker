@@ -42,3 +42,21 @@ Output Example
 
 195.234.187.0/24: Propagated as 195.234.187.0/24 via RIPEstat,BGPView | origin(s): AS47886 (EQUINIX-NL-ASN)
 
+
+Requirements
+
+Python 3.8+
+Libraries:
+pip install requests
+
+Network access to:
+
+RIPEstat API
+BGPView API
+Optional: Cloudflare Radar API, bgproutes.io API
+WHOIS (TCP port 43) for Team Cymru and RADb
+
+
+
+
+
